@@ -19,5 +19,6 @@ from our1eshop import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'',views.index)
+    path('',views.index),
+    path('login.html/', views.login),
 ]
