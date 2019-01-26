@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -139,121 +139,99 @@
                 success:function (data) {
                     code = data.code;
                     msg = data.msg;
-                    showMsg(msg,code);
+
                 },
             })
 	}
-	
 	//注册
-	function register(){
-		var username = $("#register-username").val(),
-			password = $("#register-password").val(),
-			repassword = $("#register-repassword").val(),
-			code = $("#register-code").val(),
-			flag = false,
-			validatecode = null;
-		$.ajax({
+	function register() {
+        var username = $("#register-username").val(),
+            password = $("#register-password").val(),
+            repassword = $("#register-repassword").val(),
+            code = $("#register-code").val(),
+            flag = false,
+            validatecode = null;
+        $.ajax({
             data: {
-                'username':username,
-                'password':password,
+                'username': username,
+                'password': password,
             },
             type: "POST",
             method: "POST",
-            beforeSend:function () {
+            beforeSend: function () {
                 //判断用户名密码是否为空
-                if (username ==''){
+                if (username == '') {
                     $.pt({
                         target: $("#register-username"),
                         position: 'r',
                         align: 't',
                         width: 'auto',
                         height: 'auto',
-                        content:"用户名不能为空"
+                        content: "用户名不能为空"
                     });
                     flag = true;
                 }
-                if(password == ""){
+                if (password == "") {
                     $.pt({
                         target: $("#register-password"),
                         position: 'r',
                         align: 't',
                         width: 'auto',
                         height: 'auto',
-                        content:"密码不能为空"
+                        content: "密码不能为空"
                     });
                     flag = true;
-		        }
-                if(password != repassword){
+                }
+                if (password != repassword) {
                     $.pt({
                         target: $("#register-repassword"),
                         position: 'r',
                         align: 't',
                         width: 'auto',
                         height: 'auto',
-                        content:"两次输入的密码不一致"
+                        content: "两次输入的密码不一致"
                     });
                     flag = true;
                 }
-		        if(code != 'root'){
+                if (code != 'root') {
                     $.pt({
                         target: $("#register-code"),
                         position: 'r',
                         align: 't',
                         width: 'auto',
                         height: 'auto',
-                        content:"注册码不正确"
-                   });
+                        content: "注册码不正确"
+                    });
                     flag = true;
                 }
-            }
-        })
-
-		//用户名只能是15位以下的字母或数字
-		{#var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");#}
-		{#if(!regExp.test(username)){#}
-		{#	$.pt({#}
-        {#		target: $("#register-username"),#}
-        {#		position: 'r',#}
-        {#		align: 't',#}
-        {#		width: 'auto',#}
-        {#		height: 'auto',#}
-        {#		content:"用户名必须为15位以下的字母或数字"#}
-        {#	});#}
-		{#	flag = true;#}
-		{#}#}
-		//检查用户名是否已经存在
-		//调后台代码检查用户名是否已经被注册
-		
-		//检查注册码是否正确
-		//调后台方法检查注册码，这里写死为11111111
-
-		
-		
-		if(flag){
-			return false;
-		}else{//注册
-			spop({			
-				template: '<h4 class="spop-title">注册成功</h4>即将于3秒后返回登录',
-				position: 'top-center',
-				style: 'success',
-				autoclose: 3000,
-				onOpen : function(){
-					var second = 2;
-					var showPop = setInterval(function(){
-						if(second == 0){
-							clearInterval(showPop);
-						}
-						$('.spop-body').html('<h4 class="spop-title">注册成功</h4>即将于'+second+'秒后返回登录');
-						second--;
-					},1000);
-				},
-				onClose : function(){
-					goto_login();
-				}
-			});
-			return false;
-		}
-	}
+                if (flag) {
+                    return false;
+                }
+            },
+            success: function () {
+                spop({
+                    template: '<h4 class="spop-title">注册成功</h4>即将于3秒后返回登录',
+                    position: 'top-center',
+                    style: 'success',
+                    autoclose: 3000,
+                    onOpen: function () {
+                        var second = 2;
+                        var showPop = setInterval(function () {
+                            if (second == 0) {
+                                clearInterval(showPop);
+                            }
+                            $('.spop-body').html('<h4 class="spop-title">注册成功</h4>即将于' + second + '秒后返回登录');
+                            second--;
+                        }, 1000);
+                    },
+                    onClose: function () {
+                        goto_login();
+                    }
+                });
+                return false;
+            },
+        });
+    }
 	
 	//重置密码
 	function forget(){
@@ -302,7 +280,7 @@
 		//调后台方法
 		
 		//检查注册码是否正确
-		if(code != '11111111'){
+		if(code != 'root'){
 			$.pt({
 		        target: $("#forget-code"),
 		        position: 'r',
