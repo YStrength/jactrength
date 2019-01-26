@@ -162,39 +162,38 @@
             beforeSend:function () {
                 //判断用户名密码是否为空
                 if (username ==''){
-                        $.pt({
-        		            target: $("#register-username"),
-        		            position: 'r',
-        		            align: 't',
-        		            width: 'auto',
-        		            height: 'auto',
-        		            content:"用户名不能为空"
-        	            });
-                        flag = true;
+                    $.pt({
+                        target: $("#register-username"),
+                        position: 'r',
+                        align: 't',
+                        width: 'auto',
+                        height: 'auto',
+                        content:"用户名不能为空"
+                    });
+                    flag = true;
                 }
                 if(password == ""){
-			            $.pt({
-                            target: $("#register-password"),
-                            position: 'r',
-                            align: 't',
-                            width: 'auto',
-                            height: 'auto',
-                            content:"密码不能为空"
-        	            });
-			            flag = true;
+                    $.pt({
+                        target: $("#register-password"),
+                        position: 'r',
+                        align: 't',
+                        width: 'auto',
+                        height: 'auto',
+                        content:"密码不能为空"
+                    });
+                    flag = true;
 		        }
                 if(password != repassword){
-                        $.pt({
-                            target: $("#register-repassword"),
-                            position: 'r',
-                            align: 't',
-                            width: 'auto',
-                            height: 'auto',
-                            content:"两次输入的密码不一致"
-                        });
-                        flag = true;
-                    }
-		        }
+                    $.pt({
+                        target: $("#register-repassword"),
+                        position: 'r',
+                        align: 't',
+                        width: 'auto',
+                        height: 'auto',
+                        content:"两次输入的密码不一致"
+                    });
+                    flag = true;
+                }
 		        if(code != 'root'){
                     $.pt({
                         target: $("#register-code"),
@@ -203,9 +202,10 @@
                         width: 'auto',
                         height: 'auto',
                         content:"注册码不正确"
-                       });
+                   });
                     flag = true;
                 }
+            }
         })
 
 		//用户名只能是15位以下的字母或数字
