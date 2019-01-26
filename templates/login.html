@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>login&register</title>
+<title>login</title>
 <link rel="stylesheet" href="/static/css/normalize.css">
 <link rel="stylesheet" href="/static/css/login.css">
 <link rel="stylesheet" href="/static/css/sign-up-login.css">
@@ -95,35 +95,41 @@
 		$("#forget-code").val("");
 		$("#tab-3").prop("checked",true);
 	}
-	
-	function login(){//登录
+	//登录
+	function login(){
 		var username = $("#login-username").val(),
 			password = $("#login-password").val(),
 			validatecode = null,
 			flag = false;
+		 $.ajax(
+            {
+                url: '/index/',
+                data: {
+                    'username': username,
+                    'password': password,
+                },
+                type: "POST",
+                method: "POST",
+                print(username,password)
 		//判断用户名密码是否为空
-		if(username == ""){
-			$.pt({
-        		target: $("#login-username"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"用户名不能为空"
-        	});
-			flag = true;
-		}
-		if(password == ""){
-			$.pt({
-        		target: $("#login-password"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"密码不能为空"
-        	});
-			flag = true;
-		}
+                beforeSend: function (){
+                    if (username ==''){
+                        showMsg("用户名不能为空",403);
+                        return false;
+                    }
+                    if (password ==''){
+                        showMsg("密码不能为空",403);
+                        return false;
+                    }
+                    return true;
+                },
+                success:function (data) {
+                    code = data.code;
+                    msg = data.msg;
+                    showMsg(msg,code)
+                }
+            })
+
 		//用户名只能是15位以下的字母或数字
 		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
 		if(!regExp.test(username)){
@@ -145,6 +151,7 @@
 			alert('登录成功');
 			return false;
 		}
+	    return true;
 	}
 	
 	//注册
