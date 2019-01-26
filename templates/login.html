@@ -103,14 +103,13 @@
 			flag = false;
 		 $.ajax(
             {
-                url: '/index/',
+                url: '',
                 data: {
                     'username': username,
                     'password': password,
                 },
                 type: "POST",
                 method: "POST",
-                print(username,password)
 		//判断用户名密码是否为空
                 beforeSend: function (){
                     if (username ==''){
@@ -126,32 +125,9 @@
                 success:function (data) {
                     code = data.code;
                     msg = data.msg;
-                    showMsg(msg,code)
-                }
+                    showMsg(msg,code);
+                },
             })
-
-		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
-		if(!regExp.test(username)){
-			$.pt({
-        		target: $("#login-username"),
-        		position: 'r',
-        		align: 't',
-        		width: 'auto',
-        		height: 'auto',
-        		content:"用户名必须为15位以下的字母或数字"
-        	});
-			flag = true;
-		}
-		
-		if(flag){
-			return false;
-		}else{//登录
-			//调用后台登录验证的方法
-			alert('登录成功');
-			return false;
-		}
-	    return true;
 	}
 	
 	//注册
